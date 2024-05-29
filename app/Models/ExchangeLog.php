@@ -1,30 +1,24 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+// app/Models/ExchangeLog.php
+namespace App\Models;
 
-class CreateExchangeLogsTable extends Migration
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class ExchangeLog extends Model
 {
-    public function up()
-    {
-        Schema::create('exchange_logs', function (Blueprint $table) {
-            $table->id();
-            $table->date('date');
-            $table->time('time');
-            $table->string('state');
-            $table->integer('slot');
-            $table->integer('item');
-            $table->integer('qty');
-            $table->integer('worth');
-            $table->integer('max');
-            $table->integer('offer');
-            $table->timestamps();
-        });
-    }
+    use HasFactory;
 
-    public function down()
-    {
-        Schema::dropIfExists('exchange_logs');
-    }
+    protected $fillable = [
+        'date',
+        'time',
+        'state',
+        'slot',
+        'item',
+        'qty',
+        'worth',
+        'max',
+        'offer',
+    ];
 }

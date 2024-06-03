@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ExchangeLog extends Model
 {
+    
     use HasFactory;
 
     protected $fillable = [

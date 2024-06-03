@@ -22,5 +22,9 @@
             <x-trade.block />
         @endfor 
     </div>
+    {{-- @foreach ($items as $item)
+    <i src="{{ $item}}" alt=">   
+    
+    @endforeach --}}
        
 </x-app>

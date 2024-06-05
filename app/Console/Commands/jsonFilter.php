@@ -34,26 +34,19 @@ class jsonFilter extends Command
     }
     private function filter()
     {
-        $file_path = public_path('storage/data/filter/');
-        var_dump($file_path);
-        var_dump(realpath($file_path));
+        $file_path = storage_path('data/filter/');
 
-        var_dump(File::isDirectory($file_path));
-        exit;
         if (File::isDirectory($file_path)){
-            echo "dir true";
             if (count(File::files($file_path)) > 0) {
                 echo("records bestaan");
             } else {
-                $path = 'storage/data/items/items-cache-data.json';
-                $data = Storage::get($path);
+                $path = storage_path('data/items/items-cache-data.json');
+                $data = File::get($path);
                 $this->filterGeTrade($data);
             }
         }
-            // C:\Users\bartp\OneDrive\osrs_project\public\storage\filter
-
     }
-    private function filterGeTrade(string $data)
+    private function filterGeTrade($data)
     {
         $items = json_decode($data);
         $item_filter = collect($items)->where("tradeable_on_ge", true);
@@ -65,7 +58,7 @@ class jsonFilter extends Command
         {
             $files[$key][] = $item;
             $record_count ++;
-            if( $record_count === 1000){
+            if( $record_count === 500){
                 $key++;
                 $record_count = 0;
             }
@@ -73,7 +66,8 @@ class jsonFilter extends Command
         $key = 0;
         foreach ($files as $file)
         {
-            file_put_contents('public/storage/filter/'.$key.'.json', json_encode($file));
+            fopen("storage/data/filter/".$key.".json", "w");
+            file_put_contents('storage/data/filter/'.$key.'.json', json_encode($file));
             $key++;
         }
     }

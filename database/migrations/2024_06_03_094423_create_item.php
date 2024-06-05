@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('name');
             $table->boolean('tradeable_on_ge');
             $table->boolean('members');
-            $table->integer('linked_id_item');
+            $table->integer('linked_id_item')->nullable();
             $table->integer('linked_id_noted')->nullable();
             $table->integer('linked_id_placeholder')->nullable();
             $table->boolean('noted');

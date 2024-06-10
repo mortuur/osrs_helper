@@ -25,13 +25,6 @@ class DatabaseSeeder extends Seeder
         if ($file_count == 0) {
             Artisan::call("osrs:filter");
         }
-    // test is chiller
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
-
     
         for ($key = 0; $key <= $file_count - 1; $key++) {
             $file_path = storage_path('data/filter/'.$key.".json");
@@ -40,5 +33,6 @@ class DatabaseSeeder extends Seeder
                 DB::table("items")->insert($row);
             }
         }
+        
     }
 }

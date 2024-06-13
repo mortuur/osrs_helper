@@ -9,6 +9,8 @@ class GE_price extends Model
 {
     use HasFactory;
 
+    protected $table = "GE_price";
+
     protected $fillable = [
         "item_id",
         "high",

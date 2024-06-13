@@ -1,25 +1,30 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Console\Commands;
 
-use Illuminate\Bus\Queueable;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
 
-class PriceUpdate implements ShouldQueue
+class testGEUpdate extends Command
 {
-    use Dispatchable;
-    use InteractsWithQueue;
-    use Queueable;
-    use SerializesModels;
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'app:test-g-e-update';
 
     /**
-     * Execute the job.
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Command description';
+
+    /**
+     * Execute the console command.
      */
     public function handle(): void
     {
@@ -37,6 +42,7 @@ class PriceUpdate implements ShouldQueue
     {
         try {
             $response = Http::get("https://prices.runescape.wiki/api/v1/osrs/latest");
+
             if ($response->successful()) {
                 return $response->json();
             } else {

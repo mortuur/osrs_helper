@@ -15,11 +15,8 @@ return new class extends Migration
             $table->increments('id');
             $table->unsignedBigInteger('item_id');
             $table->integer('high');
-            $table->timestamp('hightime')->nullable();
             $table->integer('low');
-            $table->timestamp('lowtime')->nullable();
-            $table->timestamps();
-            
+            $table->timestamps();   
             $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
         });
     }

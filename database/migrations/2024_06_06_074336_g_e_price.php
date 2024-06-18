@@ -12,12 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ge_prices', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->unsignedBigInteger('item_id');
-            $table->integer('high');
-            $table->integer('low');
-            $table->timestamps();   
-            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
+            $table->integer('high')->nullable();
+            $table->bigInteger('highTime')->nullable();
+            $table->integer('low')->nullable();
+            $table->bigInteger('lowTime')->nullable();
+            $table->timestamps();
+            $table->foreign('item_id')->references('item_id')->on('items')->onDelete('cascade');
         });
     }
     /**

@@ -2,10 +2,12 @@
 
 namespace App\Console\Commands;
 
+use App\Models\GE_price;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
+
 
 class testGEUpdate extends Command
 {
@@ -14,7 +16,7 @@ class testGEUpdate extends Command
      *
      * @var string
      */
-    protected $signature = 'app:test-g-e-update';
+    protected $signature = 'osrs:test-g-e-update';
 
     /**
      * The console command description.
@@ -32,6 +34,8 @@ class testGEUpdate extends Command
         
         if (!empty($ge_data)) {
             // $data = $this->addItemID($ge_data);
+                
+            if ()
             $this->updateTable($ge_data);
         } else {    
             Log::error('Unable to fetch GE data from RuneScape API');
@@ -62,12 +66,15 @@ class testGEUpdate extends Command
     // }
     private function updateTable(array $GE)
     {
+
         foreach ($GE["data"] as $item_id => $values) {
             try {
                 DB::table('ge_prices')->insert([
                     'item_id' => $item_id,
                     'high' => $values['high'],
+                    'highTime' => $values['highTime'],
                     'low' => $values['low'],
+                    'lowTime' => $values['lowTime']
                 ]);
             } catch (\Exception $e) {
                 Log::error("Error inserting record with item_id: $item_id - " . $e->getMessage());

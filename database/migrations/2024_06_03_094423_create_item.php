@@ -10,21 +10,15 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->boolean('tradeable_on_ge');
+            $table->string("examine");
+            $table->bigInteger('item_id')->unique();
             $table->boolean('members');
-            $table->integer('linked_id_item')->nullable();
-            $table->integer('linked_id_noted')->nullable();
-            $table->integer('linked_id_placeholder')->nullable();
-            $table->boolean('noted');
-            $table->boolean('noteable');
-            $table->boolean('placeholder');
-            $table->boolean('stackable');
-            $table->boolean('equipable');
-            $table->integer('cost');
-            $table->integer('lowalch');
-            $table->integer('highalch');
-            $table->integer('stacked')->nullable();
+            $table->integer('lowalch')->nullable();
+            $table->integer('limit');
+            $table->integer('value')->default(0);
+            $table->integer('highalch')->nullable();
+            $table->string('icon');
+            $table->string('name');
             $table->timestamps();
         });
     }

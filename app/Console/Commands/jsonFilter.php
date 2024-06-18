@@ -3,9 +3,10 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Symfony\Component\VarDumper\VarDumper;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\VarDumper\VarDumper;
 
 
 
@@ -34,14 +35,13 @@ class jsonFilter extends Command
     }
     private function filter()
     {
+        $data = Http::get('https://prices.runescape.wiki/api/v1/osrs/mapping');
         $file_path = storage_path('data/filter/');
 
         if (File::isDirectory($file_path)){
             if (count(File::files($file_path)) > 0) {
                 echo("records bestaan");
             } else {
-                $path = storage_path('data/items/items-cache-data.json');
-                $data = File::get($path);
                 $this->filterGeTrade($data);
             }
         }
@@ -49,7 +49,7 @@ class jsonFilter extends Command
     private function filterGeTrade($data)
     {
         $items = json_decode($data);
-        $item_filter = collect($items)->where("tradeable_on_ge", true);
+        $item_filter = collect($items);
         
         $key = 0;
         $record_count = 0;

@@ -27,12 +27,24 @@ class DatabaseSeeder extends Seeder
         }
     
         for ($key = 0; $key <= $file_count - 1; $key++) {
-            $file_path = storage_path('data/filter/'.$key.".json");
+            $file_path = storage_path('data/filter/' . $key . ".json");
             $data = json_decode(File::get($file_path), true);
             foreach ($data as $row) {
-                DB::table("items")->insert($row);
+                // dd($row);
+                DB::table("items")
+                ->insert(
+                    [
+                    "examine"   => $row["examine"],
+                    "item_id"   => $row["id"],
+                     "members"  => $row['members'],
+                    "lowalch"   => isset($row['lowalch']) ? $row['lowalch'] : null,
+                    "limit"     => $row['value'],
+                    "highalch"  => isset($row["highalch"]) ? $row["highalch"] : null,
+                    "icon"      => $row["icon"],
+                    "name"      => $row["name"],
+                    ],
+                );
             }
         }
-        
     }
 }

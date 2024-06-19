@@ -5,20 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Item extends Model
+class GE_price_1h extends Model
 {
     use HasFactory;
 
+    protected $table = "GE_price_1h";
+
     protected $fillable = [
-        "examine",
         "item_id",
-        "members",
-        "lowalch",
-        "limit",
-        "value",
-        "highalch",
-        "icon",
-        "name"
+        "avgHighPrice",
+        "highPriceVolume",
+        "avgLowPrice",
+        "lowPriceVolume"
     ];
 }
-    

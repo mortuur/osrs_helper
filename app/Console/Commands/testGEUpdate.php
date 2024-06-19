@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 
-
 class testGEUpdate extends Command
 {
     /**
@@ -33,15 +32,15 @@ class testGEUpdate extends Command
         $ge_data = $this->curlGEData();
         
         if (!empty($ge_data)) {
-            // $data = $this->addItemID($ge_data);
-                
-            if ()
-            $this->updateTable($ge_data);
+            if (GE_price::find(1)) {
+                $this->update($ge_data);
+            } else {
+                $this->add($ge_data);
+            }
         } else {    
             Log::error('Unable to fetch GE data from RuneScape API');
         }
     }
-
     private function curlGEData()
     {
         try {
@@ -58,13 +57,23 @@ class testGEUpdate extends Command
             return [];
         }
     }
-    // private function addItemID(array $data): array
-    // {
-        
-    //     Log::debug($value);
-    //     return $value;
-    // }
-    private function updateTable(array $GE)
+    private function update(array $GE): void
+    {
+        foreach ($GE["data"] as $item_id => $values) {
+            try {
+                GE_price::find($item_id)->update([
+                    'high' => $values['high'],
+                    'highTime' => $values['highTime'],
+                    'low' => $values['low'],
+                    'lowTime' => $values['lowTime']
+                ]);
+            } catch (\Exception $e) {
+                Log::error("Error update record with item_id: $item_id - " . $e->getMessage());
+                dd("Error update record with item_id: $item_id - " . $e->getMessage());
+            }
+        }
+    }
+    private function add(array $GE): void
     {
 
         foreach ($GE["data"] as $item_id => $values) {

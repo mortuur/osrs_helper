@@ -65,7 +65,7 @@ class testGEUpdate extends Command
                     'high' => $values['high'],
                     'highTime' => $values['highTime'],
                     'low' => $values['low'],
-                    'lowTime' => $values['lowTime']
+     re               'lowTime' => $values['lowTime']
                 ]);
             } catch (\Exception $e) {
                 Log::error("Error update record with item_id: $item_id - " . $e->getMessage());

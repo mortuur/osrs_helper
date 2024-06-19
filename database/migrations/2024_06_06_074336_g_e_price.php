@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('high')->nullable();
             $table->bigInteger('highTime')->nullable();
             $table->integer('low')->nullable();
-            $table->bigInteger('lowTime')->nullable();
+            $table->bigInteger('lowTime');
             $table->timestamps();
             $table->foreign('item_id')->references('item_id')->on('items')->onDelete('cascade');
         });
